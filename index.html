@@ -228,7 +228,7 @@
     "year"  : "2026",
     "title" : "AI-Based Disease Spread Prediction During Arbaeen",
     "desc"  : "GNN approach for modeling infectious disease spread in large crowd gatherings.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "June 2026",
     "link"  : "#"
   },
@@ -238,7 +238,7 @@
     "year"  : "2026",
     "title" : "Multilingual NLP Text Classification Paper",
     "desc"  : "Parameter-efficient transformers for multilingual text classification targeting Q1 journal.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "May 2026",
     "link"  : "#"
   },
@@ -248,7 +248,7 @@
     "year"  : "2026",
     "title" : "Introduction to Big Data Analytics",
     "desc"  : "Lecture slides covering Hadoop, Spark, and distributed computing frameworks.",
-    "who"   : "Dr. Suhad Faisal",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "April 2026",
     "link"  : "#"
   },
@@ -258,7 +258,7 @@
     "year"  : "2025",
     "title" : "Hands-on Machine Learning with Python",
     "desc"  : "Workshop materials including notebooks and exercises on ML techniques.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "March 2025",
     "link"  : "#"
   },
@@ -268,7 +268,7 @@
     "year"  : "2025",
     "title" : "SDG Classification Framework using SciBERT-GraphSAGE",
     "desc"  : "Hybrid NLP and graph framework mapping research publications to UN SDGs.",
-    "who"   : "Dr. Ahmed Hashim",
+    "who"   : "Dr. Ahmed Ali",
     "date"  : "January 2025",
     "link"  : "#"
   },
@@ -278,7 +278,7 @@
     "year"  : "2024",
     "title" : "Deep Learning for Medical Image Analysis",
     "desc"  : "CNN-based architectures for automated diagnosis from medical imaging data.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "November 2024",
     "link"  : "#"
   },
@@ -288,7 +288,7 @@
     "year"  : "2024",
     "title" : "Advanced Topics in Artificial Intelligence",
     "desc"  : "Graduate-level lectures on RL, meta-learning, and neural architecture search.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "September 2024",
     "link"  : "#"
   }
@@ -484,7 +484,10 @@
               if(!Array.isArray(files)) return [];
               return files.filter(function(f){return f.type==='file';}).map(function(file){
                 var name=file.name.replace(/\.(pdf|zip)$/i,'').replace(/[-_]/g,' ');
-                return {type:'file',year:folder.name,title:name,desc:'Uploaded: '+file.name,who:'Professor',date:folder.name,link:file.download_url};
+                var parts = file.name.replace(/\.(pdf|zip)$/i,'').split('_');
+                var who = parts.length > 1 ? parts[0].replace(/-/g,' ') : 'Professor';
+                var title = parts.length > 1 ? parts.slice(1).join(' ').replace(/-/g,' ') : parts[0].replace(/-/g,' ');
+                return {type:'file',year:folder.name,title:title,desc:'Uploaded file by '+who+': '+file.name,who:who,date:folder.name,link:file.download_url};
               });
             });
         });
