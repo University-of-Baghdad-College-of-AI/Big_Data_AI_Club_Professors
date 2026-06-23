@@ -149,9 +149,46 @@
       border-radius: 2px;
       padding: 0 1px;
     }
+  
+    /* ── Auth Top Bar ── */
+    .auth-topbar {
+      background: var(--navy);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      font-size: 0.82em;
+      min-height: 38px;
+    }
+    .auth-topbar .not-signed { color: rgba(255,255,255,0.45); font-style: italic; }
+    .auth-topbar .signed-in { display: none; align-items: center; gap: 10px; }
+    .auth-topbar img.avatar { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3); }
+    .auth-topbar .tb-name { color: rgba(255,255,255,0.9); font-weight: 600; }
+    .auth-topbar .tb-role { font-size: 0.78em; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.05em; }
+    .tb-role.student   { background: var(--indigo-pale,#EEF2FF); color: #4361EE; }
+    .tb-role.professor { background: #FFF8EC; color: #9a6f00; }
+    .tb-signout {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 5px; color: rgba(255,255,255,0.75); padding: 3px 10px;
+      cursor: pointer; font-size: 0.82em; font-family: inherit;
+      transition: background 0.18s, color 0.18s;
+    }
+    .tb-signout:hover { background: rgba(255,255,255,0.22); color: #fff; }
+    @media(max-width:768px){ .auth-topbar{ padding: 7px 14px; } .auth-topbar .tb-name{ display:none; } }
   </style>
 </head>
 <body>
+    <div class="auth-topbar">
+    <span class="not-signed" id="tbNotSigned">Not signed in</span>
+    <div class="signed-in" id="tbSignedIn">
+      <img class="avatar" id="tbAvatar" src="" alt="">
+      <span class="tb-name" id="tbName"></span>
+      <span class="tb-role" id="tbRole"></span>
+      <button class="tb-signout" id="tbSignout">Sign out</button>
+    </div>
+  </div>
+
   <header>
     <div class="logo-container">
       <a href="https://uobaghdad.edu.iq/" target="_blank"><img src="https://university-of-baghdad-college-of-ai.github.io/Big_Data_AI_Club_Baghdad/logo3.png" alt="University of Baghdad" class="club-logo"></a>
@@ -228,7 +265,7 @@
     "year"  : "2026",
     "title" : "AI-Based Disease Spread Prediction During Arbaeen",
     "desc"  : "GNN approach for modeling infectious disease spread in large crowd gatherings.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "June 2026",
     "link"  : "#"
   },
@@ -238,7 +275,7 @@
     "year"  : "2026",
     "title" : "Multilingual NLP Text Classification Paper",
     "desc"  : "Parameter-efficient transformers for multilingual text classification targeting Q1 journal.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "May 2026",
     "link"  : "#"
   },
@@ -248,7 +285,7 @@
     "year"  : "2026",
     "title" : "Introduction to Big Data Analytics",
     "desc"  : "Lecture slides covering Hadoop, Spark, and distributed computing frameworks.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "April 2026",
     "link"  : "#"
   },
@@ -258,7 +295,7 @@
     "year"  : "2025",
     "title" : "Hands-on Machine Learning with Python",
     "desc"  : "Workshop materials including notebooks and exercises on ML techniques.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "March 2025",
     "link"  : "#"
   },
@@ -275,21 +312,21 @@
 
   {
     "type"  : "publication",
-    "year"  : "2025",
+    "year"  : "2024",
     "title" : "Deep Learning for Medical Image Analysis",
     "desc"  : "CNN-based architectures for automated diagnosis from medical imaging data.",
-    "who"   : "Dr. Jalal S. Hameed",
-    "date"  : "November 2025",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "November 2024",
     "link"  : "#"
   },
 
   {
     "type"  : "lecture",
-    "year"  : "2025",
+    "year"  : "2024",
     "title" : "Advanced Topics in Artificial Intelligence",
     "desc"  : "Graduate-level lectures on RL, meta-learning, and neural architecture search.",
-    "who"   : "Dr. Jalal S. Hameed",
-    "date"  : "September 2025",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "September 2024",
     "link"  : "#"
   }
 
@@ -499,6 +536,50 @@
 
     buildYearFilters(allData);
     renderPage();
+  </script>
+  <script src="approved-users.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut as fbSignOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyArF59_11UVHPo9yZW5zg2RYQWaKjIZXYw",
+      authDomain: "bigdataaiclub.firebaseapp.com",
+      projectId: "bigdataaiclub",
+      storageBucket: "bigdataaiclub.firebasestorage.app",
+      messagingSenderId: "877020220761",
+      appId: "1:877020220761:web:6c6dcc22b63fcd2ec15048"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, function(user) {
+      if (user) {
+        var role = window.APPROVED_USERS ? window.APPROVED_USERS[user.email] : null;
+        if (role) {
+          document.getElementById('tbNotSigned').style.display = 'none';
+          var si = document.getElementById('tbSignedIn');
+          si.style.display = 'flex';
+          document.getElementById('tbAvatar').src = user.photoURL || '';
+          document.getElementById('tbName').textContent = user.displayName || user.email;
+          var roleEl = document.getElementById('tbRole');
+          roleEl.innerHTML = role === 'student' ? '&#127891; Student' : '&#128218; Professor';
+          roleEl.className = 'tb-role ' + role;
+        }
+      } else {
+        document.getElementById('tbNotSigned').style.display = 'inline';
+        document.getElementById('tbSignedIn').style.display = 'none';
+      }
+    });
+
+    document.getElementById('tbSignout').addEventListener('click', function() {
+      fbSignOut(auth).then(function() {
+        document.getElementById('tbNotSigned').style.display = 'inline';
+        document.getElementById('tbSignedIn').style.display = 'none';
+      });
+    });
   </script>
 </body>
 </html>
