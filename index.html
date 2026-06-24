@@ -419,7 +419,7 @@
     "year"  : "2026",
     "title" : "AI-Based Disease Spread Prediction During Arbaeen",
     "desc"  : "GNN approach for modeling infectious disease spread in large crowd gatherings using epidemiological data.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "June 2026",
     "link"  : "#"
   },
@@ -429,7 +429,7 @@
     "year"  : "2026",
     "title" : "Multilingual NLP Text Classification Paper",
     "desc"  : "Parameter-efficient transformers for multilingual text classification targeting Q1 journal publication.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "May 2026",
     "link"  : "#"
   },
@@ -439,7 +439,7 @@
     "year"  : "2026",
     "title" : "Introduction to Big Data Analytics",
     "desc"  : "Lecture slides and materials covering Hadoop, Spark, and distributed computing frameworks for large-scale data.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "April 2026",
     "link"  : "#"
   },
@@ -449,7 +449,7 @@
     "year"  : "2025",
     "title" : "Hands-on Machine Learning with Python",
     "desc"  : "Workshop materials including notebooks and exercises on supervised and unsupervised learning techniques.",
-    "who"   : "Dr. Jalal S. Hameed",
+    "who"   : "Dr. Jalal Hameed",
     "date"  : "March 2025",
     "link"  : "#"
   },
@@ -460,27 +460,27 @@
     "title" : "SDG Classification Framework using SciBERT-GraphSAGE",
     "desc"  : "Hybrid NLP and graph learning framework mapping research publications to UN Sustainable Development Goals.",
     "who"   : "Dr. Ahmed Ali",
-    "date"  : "March 2025",
+    "date"  : "January 2025",
     "link"  : "#"
   },
 
   {
     "type"  : "publication",
-    "year"  : "2025",
+    "year"  : "2024",
     "title" : "Deep Learning for Medical Image Analysis",
     "desc"  : "CNN-based architectures for automated diagnosis from medical imaging data using transfer learning.",
-    "who"   : "Dr. Jalal S. Hameed",
-    "date"  : "November 2025",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "November 2024",
     "link"  : "#"
   },
 
   {
     "type"  : "lecture",
-    "year"  : "2025",
+    "year"  : "2024",
     "title" : "Advanced Topics in Artificial Intelligence",
     "desc"  : "Graduate-level lecture series on reinforcement learning, meta-learning, and neural architecture search.",
-    "who"   : "Dr. Jalal S. Hameed",
-    "date"  : "September 2025",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "September 2024",
     "link"  : "#"
   }
 
@@ -563,6 +563,18 @@
           matched.push(d); matchedIdx.push(i);
         }
       });
+      // Sort newest first
+      var combined = matched.map(function(d,i){ return {d:d, idx:matchedIdx[i]}; });
+      combined.sort(function(a,b){
+        var ay=parseInt(a.d.year)||0, by=parseInt(b.d.year)||0;
+        if(by!==ay) return by-ay;
+        var months={january:1,february:2,march:3,april:4,may:5,june:6,
+                    july:7,august:8,september:9,october:10,november:11,december:12};
+        function mn(s){ var p=(s||'').toLowerCase().split(' '); return months[p[0]]||0; }
+        return mn(b.d.date)-mn(a.d.date);
+      });
+      matched = combined.map(function(c){ return c.d; });
+      matchedIdx = combined.map(function(c){ return c.idx; });
       var total=matched.length, totalPages=Math.max(1,Math.ceil(total/ITEMS_PER_PAGE));
       if(currentPage>totalPages) currentPage=totalPages;
       var start=(currentPage-1)*ITEMS_PER_PAGE;
