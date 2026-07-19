@@ -407,54 +407,84 @@
     </div>
   </div>
   <footer>
-    <p>&copy; 2026 <strong>Big Data Artificial Intelligence Club</strong> | Professors Work Repository</p>
+    <p>&copy; <span id="footerYear">2026</span> <strong>Big Data Artificial Intelligence Club</strong> | Professors Work Repository</p>
     <p>Big Data Department | College of AI | University of Baghdad</p>
     <p style="margin-top:6px;"><a href="https://university-of-baghdad-college-of-ai.github.io/Big_Data_AI_Club_Baghdad/">&#8592; Back to Main Website</a></p>
   </footer>
               <script>
     var allData = [
 
-      {
-        "type"  : "conference",
-        "year"  : "2026",
-        "title" : "AI-Based Disease Spread Prediction During Arbaeen",
-        "desc"  : "GNN approach for modeling infectious disease spread in large crowd gatherings using epidemiological data.",
-        "who"   : "Dr. Jalal S. Hameed",
-        "date"  : "June 2026",
-        "link"  : "#"
-      },
+  {
+    "type"  : "publication",
+    "year"  : "2026",
+    "title" : "AI-Based Disease Spread Prediction During Arbaeen",
+    "desc"  : "GNN approach for modeling infectious disease spread in large crowd gatherings using epidemiological data.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "June 2026",
+    "link"  : "#"
+  },
 
-      {
-        "type"  : "lecture",
-        "year"  : "2026",
-        "title" : "Introduction to Big Data Analytics",
-        "desc"  : "Lecture slides and materials covering Hadoop, Spark, and distributed computing frameworks for large-scale data.",
-        "who"   : "Dr. Suhad Faisal",
-        "date"  : "April 2026",
-        "link"  : "#"
-      },
+  {
+    "type"  : "publication",
+    "year"  : "2026",
+    "title" : "Multilingual NLP Text Classification Paper",
+    "desc"  : "Parameter-efficient transformers for multilingual text classification targeting Q1 journal publication.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "May 2026",
+    "link"  : "#"
+  },
 
-      {
-        "type"  : "lecture",
-        "year"  : "2025",
-        "title" : "Recommendation Systems",
-        "desc"  : "CNN-based architectures for automated diagnosis from medical imaging data using transfer learning.",
-        "who"   : "Dr. Jalal S. Hameed",
-        "date"  : "November 2025",
-        "link"  : "#"
-      },
+  {
+    "type"  : "lecture",
+    "year"  : "2026",
+    "title" : "Introduction to Big Data Analytics",
+    "desc"  : "Lecture slides and materials covering Hadoop, Spark, and distributed computing frameworks for large-scale data.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "April 2026",
+    "link"  : "#"
+  },
 
-      {
-        "type"  : "lecture",
-        "year"  : "2026",
-        "title" : "Advanced Topics in Artificial Intelligence",
-        "desc"  : "Graduate-level lecture series on reinforcement learning, meta-learning, and neural architecture search.",
-        "who"   : "Dr. Jalal S. Hameed",
-        "date"  : "May 2026",
-        "link"  : "#"
-      }
+  {
+    "type"  : "workshop",
+    "year"  : "2025",
+    "title" : "Hands-on Machine Learning with Python",
+    "desc"  : "Workshop materials including notebooks and exercises on supervised and unsupervised learning techniques.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "March 2025",
+    "link"  : "#"
+  },
 
-    ];
+  {
+    "type"  : "resource",
+    "year"  : "2025",
+    "title" : "SDG Classification Framework using SciBERT-GraphSAGE",
+    "desc"  : "Hybrid NLP and graph learning framework mapping research publications to UN Sustainable Development Goals.",
+    "who"   : "Dr. Ahmed Ali",
+    "date"  : "January 2025",
+    "link"  : "#"
+  },
+
+  {
+    "type"  : "publication",
+    "year"  : "2024",
+    "title" : "Deep Learning for Medical Image Analysis",
+    "desc"  : "CNN-based architectures for automated diagnosis from medical imaging data using transfer learning.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "November 2024",
+    "link"  : "#"
+  },
+
+  {
+    "type"  : "lecture",
+    "year"  : "2024",
+    "title" : "Advanced Topics in Artificial Intelligence",
+    "desc"  : "Graduate-level lecture series on reinforcement learning, meta-learning, and neural architecture search.",
+    "who"   : "Dr. Jalal Hameed",
+    "date"  : "September 2024",
+    "link"  : "#"
+  }
+
+];
 
     var activeType = 'all', activeYear = 'all', searchQuery = '';
     var ITEMS_PER_PAGE = 9, currentPage = 1;
@@ -781,6 +811,10 @@
         }
       } else { showSignedOut(); }
     });
+  </script>
+  <script>
+    var fy = document.getElementById('footerYear');
+    if (fy) fy.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
